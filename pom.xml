@@ -14,7 +14,7 @@
     <name>logging-spring-RestApi-using-aspect-object-programming</name>
     <description>logging-spring-RestApi-using-aspect-object-programming</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -65,6 +65,15 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>  <!-- same as <java.version> -->
+                    <target>1.8</target>    <!-- same as <java.version> -->
                 </configuration>
             </plugin>
         </plugins>
