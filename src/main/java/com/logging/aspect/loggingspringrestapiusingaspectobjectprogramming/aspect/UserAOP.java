@@ -24,12 +24,18 @@ public class UserAOP {
      **/
     private final String apiPointCut="execution(* com.logging.aspect.loggingspringrestapiusingaspectobjectprogramming.controller.*.*(..))";
 
+
     @Pointcut(apiPointCut)
     public void logController(){}
 
     /**
+     * the following point cut will scan all the project and catch any errors inside the project files
+     */
+    private final String exceptionPointcut ="execution(* com.logging.aspect.loggingspringrestapiusingaspectobjectprogramming.*.*.*(..))";
+
+    /**
      *
-     * @param joinPoint we can find inside it all the details of the method called inisde the join point
+     * @param joinPoint we can find inside it all the details of the method
      *
      */
     @Before("logController()")
@@ -39,6 +45,10 @@ public class UserAOP {
         log.info(createJoinPointForLogs(joinPoint,DataType.REQUEST));
     }
 
+    /**
+     *
+     * @param joinPoint we can find inside it all the details of the method called
+     */
     @AfterReturning("logController()")
     public void logsResponse(JoinPoint joinPoint){
         // for log the controller name
@@ -46,6 +56,20 @@ public class UserAOP {
         log.info(createJoinPointForLogs(joinPoint,DataType.RESPONSE));
     }
 
+    /**
+     * This method will print
+     * @param joinPoint we can find inside it all the details of the method called
+     * @param exception from here we can know more details about the exception like exception type and exception message
+     */
+    @AfterThrowing(value = exceptionPointcut ,throwing = "exception")
+    public void logsErrors(JoinPoint joinPoint, Throwable exception){
+        log.info("========================== We have Error here ==========================");
+        // for log the controller name
+        log.info(joinPoint.getSignature().getName());
+        // for know what the exception message
+        log.info(exception.getMessage());
+        log.info("==========================================================================");
+    }
 
     /**
      *
