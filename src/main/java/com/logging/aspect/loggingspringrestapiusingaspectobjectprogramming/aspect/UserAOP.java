@@ -3,9 +3,7 @@ package com.logging.aspect.loggingspringrestapiusingaspectobjectprogramming.aspe
 import com.logging.aspect.loggingspringrestapiusingaspectobjectprogramming.utile.DataType;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -39,6 +37,13 @@ public class UserAOP {
         // for log the controller name
         log.info(joinPoint.getSignature().getName());
         log.info(createJoinPointForLogs(joinPoint,DataType.REQUEST));
+    }
+
+    @AfterReturning("logController()")
+    public void logsResponse(JoinPoint joinPoint){
+        // for log the controller name
+        log.info(joinPoint.getSignature().getName());
+        log.info(createJoinPointForLogs(joinPoint,DataType.RESPONSE));
     }
 
 
